@@ -6,4 +6,4 @@ Description: Control center module to prepare devices for mockups.
 Maintainer: fiore
 Author: fiore
 Section: Tweaks
-Depends: mobilesubstrate
+Depends: mobilesubstrate, com.opa334.ccsupport
