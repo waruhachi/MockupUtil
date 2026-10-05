@@ -52,7 +52,18 @@ jobs:
               id: package_metadata
               shell: bash
               run: |
-                  version=$(awk -F': *' '$1 == "Version" { print $2 }' layout/DEBIAN/control)
+                  control_file="layout/DEBIAN/control"
+
+                  if [[ ! -f "$control_file" ]]; then
+                      control_file="control"
+                  fi
+
+                  if [[ ! -f "$control_file" ]]; then
+                      echo "Error: no control file found" >&2
+                      exit 1
+                  fi
+
+                  version=$(awk -F': *' '$1 == "Version" { print $2; exit }' "$control_file")
                   echo "version=$version" >> "$GITHUB_OUTPUT"
 
             - name: Download all DEBs
